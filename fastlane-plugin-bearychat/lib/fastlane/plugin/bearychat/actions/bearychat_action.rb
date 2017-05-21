@@ -2,16 +2,25 @@ module Fastlane
   module Actions
     class BearychatAction < Action
       def self.run(params)
+        require 'json'
 
         uri = URI.parse(params[:webhook])
 
         postParams = {
-            "text" => params[:text],
-            "markdown" => params[:markdown],
-            "channel" => params[:channel],
+            "text"        => params[:text],
+            "markdown"    => params[:markdown],
+            "channel"     => params[:channel],
             "attachments" => params[:attachments]
         }
-        res = Net::HTTP.post_form(uri, postParams)
+
+        request              = Net::HTTP::Post.new(uri)
+        request.body         = postParams.to_json
+        request.content_type = 'application/json'
+
+        res = Net::HTTP.start(uri.host, uri.port, :use_ssl => uri.scheme == 'https') { |http|
+          http.request(request)
+        }
+
         puts res
       end
 
