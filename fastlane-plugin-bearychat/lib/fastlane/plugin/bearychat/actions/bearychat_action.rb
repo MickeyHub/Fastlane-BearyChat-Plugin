@@ -33,48 +33,44 @@ module Fastlane
       end
 
       def self.available_options
-        [
-          FastlaneCore::ConfigItem.new(key: :webhook,
-                                  env_name: "BEARYCHAT_WEBHOOK",
-                               description: "A description of your option",
-                                  optional: false,
-                                      type: String)
-
-          FastlaneCore::ConfigItem.new(key: :text,
-                                  env_name: "BEARYCHAT_TEXT",
-                               description: "A description of your option",
-                                  optional: false,
-                                      type: String)
-
-          FastlaneCore::ConfigItem.new(key: :notification,
-                                  env_name: "BEARYCHAT_NOTIFICATION",
-                               description: "A description of your option",
-                                  optional: true,
-                                      type: String)
-          FastlaneCore::ConfigItem.new(key: :markdown,
-                                  env_name: "BEARYCHAT_MARKDOWN",
-                               description: "A description of your option",
-                                  optional: true,
-                                      type: Boolean)
-
-          FastlaneCore::ConfigItem.new(key: :channel,
-                                  env_name: "BEARYCHAT_CHANNEL",
-                               description: "A description of your option",
-                                  optional: true,
-                                      type: String)
-
-          FastlaneCore::ConfigItem.new(key: :user,
-                                  env_name: "BEARYCHAT_USER",
-                               description: "A description of your option",
-                                  optional: true,
-                                      type: String)
-
-          FastlaneCore::ConfigItem.new(key: :attachments,
-                                  env_name: "BEARYCHAT_ATTACHMENTS",
-                               description: "A description of your option",
-                                  optional: true,
-                                      type: Hash)
-        ]
+        FastlaneCore::CommanderGenerator.new.generate(
+            [
+                FastlaneCore::ConfigItem.new(key:         :webhook,
+                                             env_name:    "BEARYCHAT_WEBHOOK",
+                                             description: "A description of your option",
+                                             is_string:   true,
+                                             optional:    false),
+                FastlaneCore::ConfigItem.new(key:         :text,
+                                             env_name:    "BEARYCHAT_TEXT",
+                                             description: "A description of your option",
+                                             is_string:   true,
+                                             optional:    false),
+                FastlaneCore::ConfigItem.new(key:         :notification,
+                                             env_name:    "BEARYCHAT_NOTIFICATION",
+                                             description: "A description of your option",
+                                             is_string:   false,
+                                             optional:    true),
+                FastlaneCore::ConfigItem.new(key:         :markdown,
+                                             env_name:    "BEARYCHAT_MARKDOWN",
+                                             description: "A description of your option",
+                                             is_string:   false,
+                                             optional:    true),
+                FastlaneCore::ConfigItem.new(key:         :channel,
+                                             env_name:    "BEARYCHAT_CHANNEL",
+                                             description: "A description of your option",
+                                             is_string:   true,
+                                             optional:    true),
+                FastlaneCore::ConfigItem.new(key:         :user,
+                                             env_name:    "BEARYCHAT_USER",
+                                             description: "A description of your option",
+                                             is_string:   true,
+                                             optional:    true),
+                FastlaneCore::ConfigItem.new(key:         :attachments,
+                                             env_name:    "BEARYCHAT_ATTACHMENTS",
+                                             description: "A description of your option",
+                                             is_string:   false,
+                                             optional:    true)
+            ])
       end
 
       def self.is_supported?(platform)
